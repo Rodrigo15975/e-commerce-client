@@ -1,10 +1,10 @@
-import { Search, ShoppingCart, User } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Search, User } from 'lucide-react'
 import Link from 'next/link'
+import Cart from './Cart'
 export const Navbar = () => {
   return (
-    <nav className="w-full bg-white py-4 pt-14 px-6 md:px-8 border-b">
+    <nav className="w-full bg-white/80 backdrop-blur-sm sticky top-0 z-[9999] py-4 pt-16 pb-8 px-6 md:px-8 border-b">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-3xl font-extrabold">
@@ -36,12 +36,11 @@ export const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon">
-            <User className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <ShoppingCart className="h-5 w-5" />
-          </Button>
+          <button>
+            <User className="" />
+          </button>
+
+          <Cart />
         </div>
       </div>
     </nav>

@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <>
       <PageHome />
+      <article className="min-h-screen"></article>
     </>
   )
 }
