@@ -1,10 +1,9 @@
 'use client'
 import { AnimatePresence, m } from 'framer-motion'
-import { X } from 'lucide-react'
 import { useState } from 'react'
 
 export const TopBanner = () => {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible] = useState(true)
 
   return (
     <AnimatePresence>
@@ -22,12 +21,6 @@ export const TopBanner = () => {
               Sign Up Now
             </a>
           </p>
-          <button
-            onClick={() => setIsVisible(false)}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2"
-          >
-            <X className="h-4 w-4" />
-          </button>
         </m.div>
       )}
     </AnimatePresence>

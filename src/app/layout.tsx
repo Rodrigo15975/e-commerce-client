@@ -1,8 +1,7 @@
-import type { Metadata } from 'next'
-import './globals.css'
-import { TopBanner } from '@/components/TopBanner'
 import { Navbar } from '@/components/Navbar'
 import { AnimatePresence, domAnimation, LazyMotion } from 'framer-motion'
+import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'RDG Ecommer-ce',
@@ -18,7 +17,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <LazyMotion features={domAnimation}>
-          <TopBanner />
           <Navbar />
           <AnimatePresence>{children}</AnimatePresence>
         </LazyMotion>
