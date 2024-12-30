@@ -13,7 +13,7 @@ export const BrandStrip = () => {
           {brands.map((brand) => (
             <span
               key={brand.name}
-              className={`text-2xl md:text-4xl font-bold text-white ${brand.className}`}
+              className={`text-2xl md:text-4xl font-bold text-white `}
             >
               {brand.name}
             </span>

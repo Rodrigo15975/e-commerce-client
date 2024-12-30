@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 const Statistics = () => {
   const [counts, setCounts] = useState({
