@@ -4,6 +4,7 @@ import Statistics from '@/components/Statistics'
 import { Button } from '@/components/ui/button'
 import { ShoppingCartIcon } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Home = async () => {
   return (
@@ -25,13 +26,15 @@ bg-white
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </p>
-              <Button
-                className="mt-8 text-lg px-8 hover:bg-secondary hover:text-black py-6 max-sm:w-full"
-                size="lg"
-              >
-                Shop Now
-                <ShoppingCartIcon size={26} />
-              </Button>
+              <Link href={'/shop'}>
+                <Button
+                  className="mt-8 text-lg px-8 hover:bg-secondary hover:text-black py-6 max-sm:w-full"
+                  size="lg"
+                >
+                  Shop Now
+                  <ShoppingCartIcon size={26} />
+                </Button>
+              </Link>
               <Statistics />
             </div>
 

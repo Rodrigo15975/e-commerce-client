@@ -1,15 +1,9 @@
+import { linksPublic } from '@/utils/links'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const LinksNavbar = () => {
   const path = usePathname()
-
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/shop', label: 'Shop' },
-    { href: '#', label: 'New Arrivals' },
-    { href: '#', label: 'Brands' },
-  ]
 
   const isPathActive = (href: string) =>
     path === href
@@ -18,7 +12,7 @@ const LinksNavbar = () => {
 
   return (
     <>
-      {links.map((link, index) => (
+      {linksPublic.map((link, index) => (
         <Link
           key={`${index}-${link.label}`}
           href={link.href}
