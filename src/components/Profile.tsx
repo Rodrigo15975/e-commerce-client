@@ -16,8 +16,8 @@ import { Button } from './ui/button'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
-
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
+
   return (
     <>
       {isSignedIn ? (

@@ -28,7 +28,7 @@ export default function RootLayout({
           easing="ease"
           speed={200}
           shadow="0 0 10px #2299DD,0 0 5px #2299DD"
-          zIndex={150600}
+          zIndex={100000000}
           showAtBottom={false}
         />
         <LazyMotion features={domAnimation}>
