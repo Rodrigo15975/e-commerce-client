@@ -13,11 +13,20 @@ import { SignInButton, SignOutButton } from '@clerk/nextjs'
 import { useUser } from '@clerk/nextjs'
 import { LoaderIcon, User } from 'lucide-react'
 import { Button } from './ui/button'
+import { useEffect } from 'react'
+import { useCreateCouponNewUser } from '@/hooks/useCreate-cupon-new-user'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
-  if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
+  const { mutate } = useCreateCouponNewUser()
+  useEffect(() => {
+    if (isSignedIn) {
+      console.log('User signed in:', user.id)
+      mutate(user.id)
+    }
+  }, [isSignedIn, user, mutate])
 
+  if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
   return (
     <>
       {isSignedIn ? (

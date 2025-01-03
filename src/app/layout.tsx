@@ -4,7 +4,8 @@ import { AnimatePresence, domAnimation, LazyMotion } from 'framer-motion'
 import type { Metadata } from 'next'
 import NextTopLoader from 'nextjs-toploader'
 import './globals.css'
-
+import { ProviderQueryClient } from '@/providers/QueyClien'
+import { Toaster } from '@/components/ui/toaster'
 export const metadata: Metadata = {
   title: 'RDG Ecommer-ce',
   description: 'RDG Ecommer-ce',
@@ -34,7 +35,12 @@ export default function RootLayout({
         <LazyMotion features={domAnimation}>
           <AnimatePresence>
             <Clerk>
-              <ProviderLayoutNavbar>{children}</ProviderLayoutNavbar>
+              <ProviderQueryClient>
+                <ProviderLayoutNavbar>
+                  {children}
+                  <Toaster />
+                </ProviderLayoutNavbar>
+              </ProviderQueryClient>
             </Clerk>
           </AnimatePresence>
         </LazyMotion>
