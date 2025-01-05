@@ -20,8 +20,7 @@ const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
   const { mutate } = useCreateCouponNewUser()
   useEffect(() => {
-    if (isSignedIn) {
-      console.log('User signed in:', user.id)
+    if (isSignedIn && user) {
       mutate(user.id)
     }
   }, [isSignedIn, user, mutate])
