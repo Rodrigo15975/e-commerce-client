@@ -1,4 +1,7 @@
-interface ResponseExistingUser {
+interface ResponseNewUser {
   message: string
-  existing: boolean
+  statusCode: number
+  service: string
+  id?: number | undefined
+  newClient: boolean
 }

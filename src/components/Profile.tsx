@@ -20,9 +20,16 @@ const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
   const { mutate } = useCreateCouponNewUser()
   useEffect(() => {
-    if (isSignedIn && user) {
-      mutate(user.id)
-    }
+    console.log({
+      user,
+    })
+
+    if (isSignedIn && user)
+      mutate({
+        idGoogle: user.id,
+        emailGoogle: user.primaryEmailAddress?.emailAddress ?? 'unknown',
+        nameGoogle: user.firstName ?? 'unknown',
+      })
   }, [isSignedIn, user, mutate])
 
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
