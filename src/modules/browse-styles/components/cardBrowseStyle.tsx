@@ -18,7 +18,7 @@ const CardBrowseStyle = () => {
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/placeholder.svg"
+                  src="/"
                   alt="Casual style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -38,7 +38,7 @@ const CardBrowseStyle = () => {
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/placeholder.svg"
+                  src="/"
                   alt="Formal style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -58,7 +58,7 @@ const CardBrowseStyle = () => {
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/placeholder.svg"
+                  src="/"
                   alt="Party style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -78,7 +78,7 @@ const CardBrowseStyle = () => {
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/placeholder.svg"
+                  src="/"
                   alt="Gym style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"

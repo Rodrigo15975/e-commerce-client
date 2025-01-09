@@ -9,29 +9,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { SignInButton, SignOutButton } from '@clerk/nextjs'
-import { useUser } from '@clerk/nextjs'
+import { useVerifOneClient } from '@/hooks/use-verify-one-client'
+import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { LoaderIcon, User } from 'lucide-react'
 import { Button } from './ui/button'
-import { useEffect } from 'react'
-import { useCreateCouponNewUser } from '@/hooks/useCreate-cupon-new-user'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
-  const { mutate } = useCreateCouponNewUser()
-  useEffect(() => {
-    console.log({
-      user,
-    })
-
-    if (isSignedIn && user)
-      mutate({
-        idGoogle: user.id,
-        emailGoogle: user.primaryEmailAddress?.emailAddress ?? 'unknown',
-        nameGoogle: user.firstName ?? 'unknown',
-      })
-  }, [isSignedIn, user, mutate])
-
+  const {} = useVerifOneClient()
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
   return (
     <>
