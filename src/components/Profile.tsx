@@ -16,10 +16,7 @@ import { Button } from './ui/button'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
-  const { client } = useVerifyOneClientExisting()
-  console.log({
-    client,
-  })
+  const {} = useVerifyOneClientExisting()
 
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
   return (

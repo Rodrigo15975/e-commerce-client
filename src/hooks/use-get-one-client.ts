@@ -7,9 +7,9 @@ export const useGetOneClientById = (id?: string) => {
     queryFn: () => getOneClient(id),
     retry: 2,
     retryDelay: 10000,
-    gcTime: 200000,
+    gcTime: 5000000,
     enabled: !!id,
-    staleTime: 200000,
+    staleTime: 5000000,
   })
 }
 
