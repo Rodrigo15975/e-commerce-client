@@ -9,14 +9,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useVerifOneClient } from '@/hooks/use-verify-one-client'
+import { useVerifyOneClientExisting } from '@/hooks/use-verify-one-client'
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { LoaderIcon, User } from 'lucide-react'
 import { Button } from './ui/button'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
-  const {} = useVerifOneClient()
+  const { client } = useVerifyOneClientExisting()
+  console.log({
+    client,
+  })
+
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
   return (
     <>
