@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 const CardBrowseStyle = () => {
   return (
-    <>
-      <section className="w-full px-4 py-8 md:py-12 bg-gray-100">
+    <div className="md:px-20">
+      <section className="w-full px-4 py-8  shadow-2xl md:py-12 bg-gray-100">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">
             BROWSE BY DRESS STYLE
@@ -13,12 +13,12 @@ const CardBrowseStyle = () => {
           <div className="grid grid-cols-2 gap-4 md:gap-6">
             {/* Casual Card */}
             <Link
-              href="/styles/casual"
+              href="/shop"
               className="col-span-1 row-span-1 aspect-[4/3] md:aspect-[3/2]"
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/"
+                  src="https://images.unsplash.com/photo-1541452230789-003e928e582b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Casual style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -33,12 +33,12 @@ const CardBrowseStyle = () => {
 
             {/* Formal Card */}
             <Link
-              href="/styles/formal"
+              href="/shop"
               className="col-span-1 row-span-1 aspect-[4/3] md:aspect-[3/2]"
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/"
+                  src="https://images.unsplash.com/photo-1472417583565-62e7bdeda490?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Formal style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -53,12 +53,12 @@ const CardBrowseStyle = () => {
 
             {/* Party Card */}
             <Link
-              href="/styles/party"
+              href="/shop"
               className="col-span-2 row-span-1 aspect-[16/7] md:aspect-[16/5]"
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/"
+                  src="https://images.unsplash.com/photo-1485872299829-c673f5194813?q=80&w=2054&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Party style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -73,12 +73,12 @@ const CardBrowseStyle = () => {
 
             {/* Gym Card */}
             <Link
-              href="/styles/gym"
+              href="/shop"
               className="col-span-2 row-span-1 aspect-[16/7] md:aspect-[16/5]"
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 <Image
-                  src="/"
+                  src="https://images.unsplash.com/photo-1606902965551-dce093cda6e7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Gym style clothing"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
@@ -93,7 +93,7 @@ const CardBrowseStyle = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 

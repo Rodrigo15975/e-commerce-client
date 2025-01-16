@@ -1,19 +1,8 @@
 import { Button } from '@/components/ui/button'
 import ItemCard from './itemCard'
+import Link from 'next/link'
 
-interface ProductGridProps {
-  title: string
-  products: {
-    title: string
-    price: number
-    originalPrice?: number
-    rating: number
-    image: string
-    discount?: number
-  }[]
-}
-
-const Card = ({ products, title }: ProductGridProps) => {
+const Card = ({ products, title }: { products: Product[]; title: string }) => {
   return (
     <>
       <section className="py-8">
@@ -21,14 +10,19 @@ const Card = ({ products, title }: ProductGridProps) => {
           {title}
         </h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((product, i) => (
-            <ItemCard key={i} {...product} />
+          {products.map((product) => (
+            <ItemCard key={product.id} products={product} title={title} />
           ))}
         </div>
         <div className="mt-8 flex justify-center max-w-xs mx-auto">
-          <Button variant="outline" className="h-[2.8rem] rounded-lg w-full">
-            View All
-          </Button>
+          <Link
+            href="/shop"
+            className="flex gap-2 w-full justify-center items-center"
+          >
+            <Button variant="outline" className="h-[2.8rem] rounded-lg w-full">
+              View All
+            </Button>
+          </Link>
         </div>
       </section>
     </>

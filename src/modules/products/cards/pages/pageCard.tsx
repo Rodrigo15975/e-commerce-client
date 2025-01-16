@@ -1,4 +1,4 @@
-import ProductCard from '@/modules/cards/components/productCard'
+import ProductCard from '@/modules/products/cards/components/productCard'
 
 const PageCard = () => {
   return (
