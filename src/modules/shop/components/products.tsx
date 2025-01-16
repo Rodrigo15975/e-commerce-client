@@ -37,8 +37,6 @@ export default function Products() {
     // Si no hay productos, retornar un array vacío
     if (!allProduct || allProduct.length === 0) return []
 
-    console.log('Productos originales:', allProduct)
-
     return allProduct.filter((product) => {
       // Aplicar los filtros uno por uno
       const matchesCategory =
@@ -75,8 +73,6 @@ export default function Products() {
     priceRange,
     selectedStyle,
   ])
-
-  console.log('Productos filtrados:', filteredProducts)
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
   const currentProducts = filteredProducts.slice(
