@@ -1,9 +1,17 @@
-const PageCart = () => {
+import DetailsProductID from '@/modules/products/pages/pageProductId'
+interface PageProps {
+  params: Promise<{
+    id: string
+  }>
+}
+const PageProductID = async ({ params }: PageProps) => {
+  const resolvedParams = await params
+  const idNumber = Number(resolvedParams.id)
   return (
     <>
-      <h1>PageCart</h1>
+      <DetailsProductID id={idNumber} />
     </>
   )
 }
 
-export default PageCart
+export default PageProductID

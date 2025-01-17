@@ -1,3 +1,4 @@
+// para el carrito de compras
 const Products = () => {
   return <></>
 }

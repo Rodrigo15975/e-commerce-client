@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
-import { useGetAllProducts } from '@/modules/products/cards/services/queries'
+import { useGetAllProducts } from '@/modules/products/services/queries'
 import { ChevronDown, ShoppingCartIcon, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
@@ -19,7 +19,6 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(1)
   const productsPerPage = 9
 
-  // Extract unique categories from products
   const categories = useMemo(() => {
     if (!allProduct) return []
     return Array.from(new Set(allProduct.map((p) => p.category.category)))
@@ -34,11 +33,9 @@ export default function Products() {
   }, [allProduct])
 
   const filteredProducts = useMemo(() => {
-    // Si no hay productos, retornar un array vacío
     if (!allProduct || allProduct.length === 0) return []
 
     return allProduct.filter((product) => {
-      // Aplicar los filtros uno por uno
       const matchesCategory =
         !selectedCategory || product.category.category === selectedCategory
 

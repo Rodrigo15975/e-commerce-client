@@ -10,7 +10,6 @@ const Cart = () => {
           <ShoppingCartIcon />
         </Button>
       </Link>
-  
     </>
   )
 }
