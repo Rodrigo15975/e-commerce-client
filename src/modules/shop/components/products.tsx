@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
 import { useGetAllProducts } from '@/modules/products/cards/services/queries'
-import { ChevronDown, Star } from 'lucide-react'
+import { ChevronDown, ShoppingCartIcon, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -250,7 +250,7 @@ export default function Products() {
                     </span>
                   </div>
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
+                <CardFooter className="p-4 pt-0 flex justify-between">
                   <div className="flex items-center gap-2">
                     <span className="font-bold">${product.price}</span>
                     {product.discount > 0 && (
@@ -261,6 +261,18 @@ export default function Products() {
                         )}
                       </span>
                     )}
+                  </div>
+                  <div className="flex end">
+                    <Button
+                      className="
+                        bg-rose-600
+                        text-white
+                        hover:bg-primary/90
+                        active:bg-primary/80
+                    "
+                    >
+                      <ShoppingCartIcon className="mr-2 h-4 w-4" />+
+                    </Button>
                   </div>
                 </CardFooter>
               </Card>

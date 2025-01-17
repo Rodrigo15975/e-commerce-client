@@ -10,12 +10,12 @@ const ItemCard = ({
   products: Product
   title: string
 }) => {
-  const { productVariant, product, price, discount } = products
+  const { productVariant, product, price, discount, id } = products
   const rating = Math.floor(Math.random() * 5 + 0.5)
   const originalPrice = price + (price * discount) / 100
   return (
     <>
-      <Link href="#" className="block group">
+      <Link href={`/products/${id}`} className="block group">
         <Card className="border-0 ring-1 ring-cyan-50/50 hover:ring-cyan-50/80 shadow-md transition-all hover:shadow-lg">
           <CardContent className="p-2">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
