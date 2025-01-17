@@ -37,7 +37,6 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
     <>
       <div className="container mx-auto px-4 py-8">
         <div className="grid gap-8 md:grid-cols-2">
-          {/* Product Images */}
           <div className="space-y-4">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
               <Image
@@ -80,7 +79,6 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
             </Carousel>
           </div>
 
-          {/* Product Info */}
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold">{product?.product}</h1>

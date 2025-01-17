@@ -2,7 +2,15 @@ import { Button } from '@/components/ui/button'
 import ItemCard from './itemCard'
 import Link from 'next/link'
 
-const Card = ({ products, title }: { products: Product[]; title: string }) => {
+const Card = ({
+  products,
+  title,
+  viewAllButton = true,
+}: {
+  products: Product[]
+  title: string
+  viewAllButton?: boolean
+}) => {
   return (
     <>
       <section className="py-8">
@@ -15,14 +23,19 @@ const Card = ({ products, title }: { products: Product[]; title: string }) => {
           ))}
         </div>
         <div className="mt-8 flex justify-center max-w-xs mx-auto">
-          <Link
-            href="/shop"
-            className="flex gap-2 w-full justify-center items-center"
-          >
-            <Button variant="outline" className="h-[2.8rem] rounded-lg w-full">
-              View All
-            </Button>
-          </Link>
+          {viewAllButton && (
+            <Link
+              href="/shop"
+              className="flex gap-2 w-full justify-center items-center"
+            >
+              <Button
+                variant="outline"
+                className="h-[2.8rem] rounded-lg w-full"
+              >
+                View All
+              </Button>
+            </Link>
+          )}
         </div>
       </section>
     </>
