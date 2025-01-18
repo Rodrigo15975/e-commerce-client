@@ -8,9 +8,12 @@ import { useGetAllProducts } from '@/modules/products/services/queries'
 import { ChevronDown, ShoppingCartIcon, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
+import { useDataGetting } from '../hooks/data-getting'
+import { useCartStore } from '@/modules/products/store/useCartStore'
 
 export default function Products() {
   const { data: allProduct } = useGetAllProducts()
+  const { categories, colors } = useDataGetting()
   const [priceRange, setPriceRange] = useState([1])
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [selectedColor, setSelectedColor] = useState<string>('')
@@ -18,19 +21,6 @@ export default function Products() {
   const [selectedStyle, setSelectedStyle] = useState<string>('')
   const [currentPage, setCurrentPage] = useState(1)
   const productsPerPage = 9
-
-  const categories = useMemo(() => {
-    if (!allProduct) return []
-    return Array.from(new Set(allProduct.map((p) => p.category.category)))
-  }, [allProduct])
-  const colors = useMemo(() => {
-    if (!allProduct) return []
-    const colorSet = new Set<string>()
-    allProduct.forEach((product) =>
-      product.productVariant.forEach((variant) => colorSet.add(variant.color))
-    )
-    return Array.from(colorSet)
-  }, [allProduct])
 
   const filteredProducts = useMemo(() => {
     if (!allProduct || allProduct.length === 0) return []
@@ -79,6 +69,12 @@ export default function Products() {
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedCategory, selectedColor, selectedSize, priceRange, selectedStyle])
+
+  const { addItem } = useCartStore()
+
+  const addItemToCart = (product: Product) => {
+    addItem(product)
+  }
 
   return (
     <div className="container mx-auto p-4 lg:p-8">
@@ -175,7 +171,7 @@ export default function Products() {
               setSelectedColor('')
               setSelectedSize('')
               setSelectedStyle('')
-              setPriceRange([50])
+              setPriceRange([1])
             }}
           >
             Reset Filters
@@ -200,7 +196,7 @@ export default function Products() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentProducts.map((product) => (
               <Card key={product.id}>
-                <CardHeader className="p-0">
+                <CardHeader className="p-4">
                   <div className="aspect-square relative bg-gray-100">
                     {product.productVariant[0]?.url && (
                       <Image
@@ -236,15 +232,13 @@ export default function Products() {
                           key={i}
                           className={cn(
                             'h-4 w-4',
-                            i < Math.floor((product.total_sold || 0) / 20)
-                              ? 'fill-primary text-primary'
+                            i < 5 / 20
+                              ? // Math.floor((product.rating || 5) / 20)
+                                ' fill-yellow-400 text-yellow-400'
                               : 'text-gray-300'
                           )}
                         />
                       ))}
-                    <span className="text-sm text-gray-500 ml-1">
-                      {product.total_sold || 0} sold
-                    </span>
                   </div>
                 </CardContent>
                 <CardFooter className="p-4 pt-0 flex justify-between">
@@ -261,11 +255,11 @@ export default function Products() {
                   </div>
                   <div className="flex end">
                     <Button
-                      className="
-                        bg-rose-600
-                        text-white
-                        hover:bg-primary/90
-                        active:bg-primary/80
+                      variant={'outline'}
+                      onClick={() => addItemToCart(product)}
+                      className=" bg-transparent border border-rose-400/5 bg-rose-50
+                      text-primary
+                       
                     "
                     >
                       <ShoppingCartIcon className="mr-2 h-4 w-4" />+

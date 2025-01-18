@@ -1,41 +1,28 @@
 type Product = {
   id: number
+  quantity_buy: number
   brand: string
   category: {
     id: number
     category: string
-    createdAt: string
-    updatedAt: string
   }
-  categoryId: number
   createdAt: string
   description: string
   discount: number
   gender: string
-  is_new: boolean
+  is_new: true
   price: number
   product: string
-  productInventory: {
-    id: number
-    minStock: number
-    stock: boolean
-    productsId: number
-    createdAt: string
-    updatedAt: string
-  }
-  productVariant: {
-    id: number
-    color: string
-    url: string
-    key_url: string
-    createdAt: string
-    updatedAt: string
-    productsId: number
-  }[]
+  productVariant: [
+    {
+      id: number
+      color: string
+      url: string
+      key_url: string
+    }
+  ]
   quantity: number
   size: string[]
-  total_sold: number | null
-  updatedAt: string
 }
 
 type Categorie = {

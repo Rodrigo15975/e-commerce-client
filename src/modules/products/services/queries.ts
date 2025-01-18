@@ -3,7 +3,7 @@ import { PathServices } from '@/path-services/path-services'
 import { useQuery } from '@tanstack/react-query'
 
 const getAllProducts = async () =>
-  await useMethods.GET<Product[]>(PathServices.PRODUCTS)
+  await useMethods.GET<Product[]>(`${PathServices.PRODUCTS}/client`)
 
 const getAllCategories = async () =>
   await useMethods.GET<Categorie[]>(PathServices.CATEGORIES)
