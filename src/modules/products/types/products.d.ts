@@ -22,6 +22,7 @@ type Product = {
     }
   ]
   quantity: number
+  total_sold: number
   size: string[]
 }
 
