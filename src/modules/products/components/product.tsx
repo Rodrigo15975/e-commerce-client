@@ -1,8 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { ArrowLeft, ChevronDown, X } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ChevronDown, X } from 'lucide-react'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
+import Link from 'next/link'
 
 interface CartItem {
   id: number
@@ -24,7 +24,6 @@ interface CartItem {
   quantity: number
   image: string
 }
-
 const ProductCarts = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
@@ -150,11 +149,11 @@ const ProductCarts = () => {
                     </div>
                   </div>
                 ))}
-                <Link
-                  href="#"
-                  className="flex items-center text-sm text-muted-foreground hover:text-primary"
-                >
-                  ← Back to shop
+
+                <Link href={'/shop'}>
+                  <Button variant={'outline'}>
+                    <ArrowLeft /> Back to shop
+                  </Button>
                 </Link>
               </CardContent>
             </Card>
