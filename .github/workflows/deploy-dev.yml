@@ -19,11 +19,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - name: Clear Cache
+        run: rm -rf .next
 
       - name: Set environment variables
         env:
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ env.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ env.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ env.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
         run: echo "Environment variables set."
