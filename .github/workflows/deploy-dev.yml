@@ -19,6 +19,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      # Cache node_modules
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+          key: node-modules-${{ matrix.node-version }}-${{ hashFiles('package-lock.json', 'yarn.lock') }}
+          restore-keys: |
+            node-modules-${{ matrix.node-version }}-
+
       - name: Clear Cache
         run: rm -rf .next
 
