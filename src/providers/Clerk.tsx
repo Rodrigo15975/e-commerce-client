@@ -4,7 +4,11 @@ import { FC, PropsWithChildren } from 'react'
 const Clerk: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <ClerkProvider>{children}</ClerkProvider>
+      <ClerkProvider
+        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      >
+        {children}
+      </ClerkProvider>
     </>
   )
 }
