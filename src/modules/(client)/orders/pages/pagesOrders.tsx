@@ -1,9 +1,7 @@
-import Orders from '../components/orders'
-
 const PagesOrders = () => {
   return (
     <>
-      <Orders />
+      <h1>Page Orders</h1>
     </>
   )
 }
