@@ -25,7 +25,7 @@ export const TopBanner = () => {
           <p className="font-medium">
             {!user?.id
               ? 'Sign up and get 20% off to your first order.'
-              : client?.coupon.expired
+              : client?.coupon && client
               ? `Welcome ${client?.nameGoogle} `
               : 'You got 20% off your first order.'}
             {!user?.id && (
