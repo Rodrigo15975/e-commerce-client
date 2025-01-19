@@ -1,7 +1,7 @@
 const PageNewProducts = () => {
   return (
     <>
-      <h1>No ira esto </h1>
+      <h1>No ira </h1>
       <p>Confe va</p>
     </>
   )
