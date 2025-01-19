@@ -1,15 +1,13 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
 import { useGetAllProducts } from '@/modules/products/services/queries'
-import { ChevronDown, ShoppingCartIcon, Star } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronDown } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useDataGetting } from '../hooks/data-getting'
-import { useCartStore } from '@/modules/products/store/useCartStore'
+import ProductDetails from './product-details'
 
 export default function Products() {
   const { data: allProduct } = useGetAllProducts()
@@ -69,12 +67,6 @@ export default function Products() {
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedCategory, selectedColor, selectedSize, priceRange, selectedStyle])
-
-  const { addItem } = useCartStore()
-
-  const addItemToCart = (product: Product) => {
-    addItem(product)
-  }
 
   return (
     <div className="container mx-auto p-4 lg:p-8">
@@ -192,84 +184,7 @@ export default function Products() {
               </span>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentProducts.map((product) => (
-              <Card key={product.id}>
-                <CardHeader className="p-4">
-                  <div className="aspect-square relative bg-gray-100">
-                    {product.productVariant[0]?.url && (
-                      <Image
-                        src={
-                          product.productVariant[0].url ||
-                          'https://images.unsplash.com/photo-1606902965551-dce093cda6e7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        }
-                        alt={product.product}
-                        fill
-                        className="object-cover"
-                      />
-                    )}
-                    {product.discount > 0 && (
-                      <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
-                        -{product.discount}%
-                      </span>
-                    )}
-                    {product.is_new && (
-                      <span className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                        New
-                      </span>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4">
-                  <h3 className="font-medium">{product.product}</h3>
-                  <p className="text-sm text-gray-500">{product.brand}</p>
-                  <div className="flex items-center gap-1 my-2">
-                    {Array(5)
-                      .fill(0)
-                      .map((_, i) => (
-                        <Star
-                          key={i}
-                          className={cn(
-                            'h-4 w-4',
-                            i < 5 / 20
-                              ? // Math.floor((product.rating || 5) / 20)
-                                ' fill-yellow-400 text-yellow-400'
-                              : 'text-gray-300'
-                          )}
-                        />
-                      ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-4 pt-0 flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold">${product.price}</span>
-                    {product.discount > 0 && (
-                      <span className="text-sm text-gray-500 line-through">
-                        $
-                        {Math.round(
-                          product.price / (1 - product.discount / 100)
-                        )}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex end">
-                    <Button
-                      variant={'outline'}
-                      onClick={() => addItemToCart(product)}
-                      className=" bg-transparent border border-rose-400/5 bg-rose-50
-                      text-primary
-                       
-                    "
-                    >
-                      <ShoppingCartIcon className="mr-2 h-4 w-4" />+
-                    </Button>
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-
+          <ProductDetails currentProducts={currentProducts} />
           <div className="flex items-center justify-center gap-2 mt-8">
             <Button
               variant="outline"

@@ -1,11 +1,10 @@
 'use client'
 import { useGetOneProduct } from '../services/queries'
 
-import { useState } from 'react'
+import { ArrowLeft, MinusIcon, PlusIcon, Star } from 'lucide-react'
 import Image from 'next/image'
-import { MinusIcon, PlusIcon, Star } from 'lucide-react'
+import { useState } from 'react'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Carousel,
@@ -15,36 +14,88 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import SkeletonDetails from '@/components/ui/skeleton-details'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
 import ProductsAlsoLike from './products-also-like'
 import { ProductReviews } from './products-review'
+import { useCartStore } from '../store/useCartStore'
+import { useToast } from '@/hooks/use-toast'
 
 const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
-  const { data: product } = useGetOneProduct(id)
-  const [selectedColor, setSelectedColor] = useState(
+  const { toast } = useToast()
+  const { data: product, isLoading } = useGetOneProduct(id)
+  const { addItem } = useCartStore()
+  const [selectedColor, setSelectedColor] = useState<string>(
     product?.productVariant[0]?.color || ''
   )
-  const [selectedSize, setSelectedSize] = useState(product?.size[0] || '')
-  const [quantity, setQuantity] = useState(1)
-  const [selectedImage, setSelectedImage] = useState(
-    product?.productVariant[0]?.url || ''
+
+  const [selectedSize, setSelectedSize] = useState<string>(
+    product?.size[0] || ''
   )
 
-  const discountedPrice =
+  const [quantity, setQuantity] = useState<number>(1)
+
+  const [selectedImage, setSelectedImage] = useState<string>(
+    product?.productVariant[0]?.url || ''
+  )
+  if (isLoading) return <SkeletonDetails />
+
+  const discountedPrice: number =
     (product?.price ?? 0) -
     (product?.price ?? 0) * ((product?.discount ?? 0) / 100)
+
+  const handleAddToCart = (itemToProduct: Product | undefined) => {
+    if (itemToProduct && itemToProduct.id) {
+      toast({
+        title: 'Added to cart',
+        description: (
+          <>
+            <p>Product added to cart successfully</p>
+            <Link
+              className="underline text-blue-400 mt-8 underline-offset-2"
+              href={'/products'}
+            >
+              Show cart
+            </Link>
+          </>
+        ),
+        translate: 'yes',
+        duration: 2000,
+      })
+      addItem({
+        ...itemToProduct,
+        quantity_buy: quantity,
+        price: discountedPrice,
+        size: [selectedSize ?? ''],
+        productVariant: [
+          {
+            ...itemToProduct.productVariant[0],
+            color: selectedColor ?? '',
+            url: selectedImage ?? '',
+          },
+        ],
+      })
+    }
+  }
 
   return (
     <>
       <div className="container mx-auto px-4 py-8">
+        <div className="w-full pb-4 flex justify-end  ">
+          <Link href={'/shop'} className="w-[300px]">
+            <Button className="w-full" variant={'outline'}>
+              <ArrowLeft /> Back to shop
+            </Button>
+          </Link>
+        </div>
+        {/* <Separator className="my-4" /> */}
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
               <Image
-                src={
-                  selectedImage ||
-                  'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                }
-                alt={product?.product ?? "Product's imag " + id}
+                src={selectedImage}
+                alt={product?.product ?? "Product's image" + id}
                 fill
                 className="object-cover"
                 priority
@@ -62,12 +113,10 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
                       onClick={() => setSelectedImage(variant.url)}
                     >
                       <Image
-                        src={
-                          variant.url ||
-                          'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        }
+                        src={variant.url}
                         alt={`${product.product} - ${variant.color}`}
                         fill
+                        priority
                         className="object-cover"
                       />
                     </div>
@@ -90,7 +139,7 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
                       className={cn(
                         'h-5 w-5',
                         i < 4
-                          ? 'fill-primary text-primary'
+                          ? 'fill-yellow-400 text-yellow-400'
                           : 'fill-muted text-muted'
                       )}
                     />
@@ -172,7 +221,11 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
                   <PlusIcon className="h-4 w-4" />
                 </Button>
               </div>
-              <Button className="flex-1" size="lg">
+              <Button
+                onClick={() => handleAddToCart(product)}
+                className="flex-1"
+                size="lg"
+              >
                 Add to Cart
               </Button>
             </div>

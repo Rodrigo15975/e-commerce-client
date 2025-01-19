@@ -1,4 +1,4 @@
-import PageProduct from '@/modules/products/pages/pageProduct'
+import PageProduct from '@/modules/shop/pages/pageProduct-shop'
 
 const Products = () => {
   return (

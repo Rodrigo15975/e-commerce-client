@@ -1,5 +1,11 @@
+import PageNewProducts from '@/modules/newProducts/pages/pageNewProducts'
+
 const NewProducts = () => {
-  return <></>
+  return (
+    <>
+      <PageNewProducts />
+    </>
+  )
 }
 
 export default NewProducts

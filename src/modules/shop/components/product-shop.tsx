@@ -1,16 +1,19 @@
 'use client'
-import { ArrowLeft, CheckIcon } from 'lucide-react'
+import { ArrowLeft, CheckIcon, ShoppingCart } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import Link from 'next/link'
-import { useCartStore } from '../store/useCartStore'
-import ProductsDetails from './product-details'
+import { useVerifyOneClientExisting } from '@/hooks/use-verify-one-client'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
+import ProductsDetails from '../../products/components/product-details'
+import { useCartStore } from '../../products/store/useCartStore'
+import { FaGoogle } from 'react-icons/fa'
 
 const ProductCarts = () => {
+  const { client } = useVerifyOneClientExisting()
   const { items } = useCartStore()
   const totalItems = items.length
   const subtotal = items.reduce(
@@ -33,6 +36,21 @@ const ProductCarts = () => {
               </CardHeader>
               <CardContent className="grid gap-6">
                 <AnimatePresence mode="sync">
+                  {items.length === 0 && (
+                    <motion.div
+                      key="empty"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex justify-center items-center"
+                      transition={{ duration: 0.2 }}
+                    >
+                      <p className="text-muted-foreground flex gap-2">
+                        Your cart is empty.
+                        <ShoppingCart />
+                      </p>
+                    </motion.div>
+                  )}
                   {items.map((item) => (
                     <motion.div
                       key={item.id}
@@ -63,10 +81,22 @@ const ProductCarts = () => {
               <CardContent className="grid gap-4">
                 <div className="flex justify-between">
                   <span>Items {totalItems}</span>
-                  <span>€{subtotal.toFixed(2)}</span>
+                  <span>${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="grid gap-2">
-                  <span className="font-semibold">Give Code</span>
+                  <span className="font-semibold">Give Code </span>
+                  {client && client?.coupon?.code && (
+                    <>
+                      <div className="text-[.8rem]">
+                        <p>
+                          Your code:{' '}
+                          <span className="font-bold">
+                            {client?.coupon?.code}
+                          </span>
+                        </p>
+                      </div>
+                    </>
+                  )}
                   <div className="flex gap-2">
                     <Input placeholder="Enter your code" />
                     <Button
@@ -81,11 +111,18 @@ const ProductCarts = () => {
                 <Separator />
                 <div className="flex justify-between font-semibold">
                   <span>Total Price</span>
-                  <span>€{total.toFixed(2)}</span>
+                  <span>${total.toFixed(2)}</span>
                 </div>
-                <Button className="w-full bg-black text-white hover:bg-gray-800">
-                  CHECKOUT
-                </Button>
+                {client?.id ? (
+                  <Button className="w-full bg-black text-white hover:bg-gray-800">
+                    CHECKOUT
+                  </Button>
+                ) : (
+                  <Button className="w-full bg-primary text-white hover:bg-gray-800">
+                    <FaGoogle />
+                    Login to checkout
+                  </Button>
+                )}
               </CardContent>
             </Card>
           </div>

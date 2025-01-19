@@ -13,6 +13,7 @@ const ItemCard = ({
   const { productVariant, product, price, discount, id } = products
   const rating = Math.floor(Math.random() * 5 + 0.5)
   const originalPrice = price + (price * discount) / 100
+
   return (
     <>
       <Link href={`/products/${id}`} className="block group">

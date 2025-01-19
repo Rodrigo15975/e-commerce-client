@@ -1,12 +1,17 @@
 'use client'
+import { useGetOneClientById } from '@/hooks/use-get-one-client'
 import { useUser } from '@clerk/nextjs'
 import { AnimatePresence, m } from 'framer-motion'
+import { LoaderIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
 export const TopBanner = () => {
-  const { user } = useUser()
+  const { user, isSignedIn, isLoaded } = useUser()
+  const { data: client } = useGetOneClientById(user?.id)
   const [isVisible] = useState(true)
+
+  if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
 
   return (
     <AnimatePresence>
@@ -20,7 +25,9 @@ export const TopBanner = () => {
           <p className="font-medium">
             {!user?.id
               ? 'Sign up and get 20% off to your first order.'
-              : 'You have a 20% discount on any product'}
+              : client?.coupon.expired
+              ? `Welcome ${client?.nameGoogle} `
+              : 'You got 20% off your first order.'}
             {!user?.id && (
               <Link href="/sign-in" className="underline">
                 Sign Up Now

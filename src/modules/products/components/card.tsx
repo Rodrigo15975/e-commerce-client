@@ -6,10 +6,12 @@ const Card = ({
   products,
   title,
   viewAllButton = true,
+  toHref = '/shop',
 }: {
   products: Product[]
   title: string
   viewAllButton?: boolean
+  toHref?: string
 }) => {
   return (
     <>
@@ -25,7 +27,7 @@ const Card = ({
         <div className="mt-8 flex justify-center max-w-xs mx-auto">
           {viewAllButton && (
             <Link
-              href="/shop"
+              href={toHref}
               className="flex gap-2 w-full justify-center items-center"
             >
               <Button

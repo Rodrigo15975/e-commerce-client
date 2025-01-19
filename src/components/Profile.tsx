@@ -10,19 +10,30 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { useVerifyOneClientExisting } from '@/hooks/use-verify-one-client'
+import { linksProtectedClient } from '@/utils/links'
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { LoaderIcon, User } from 'lucide-react'
+import LinksNavDynamic from './linksNavDynamic'
 import { Button } from './ui/button'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { FaSignOutAlt } from 'react-icons/fa'
 
 const Profile = () => {
   const { user, isSignedIn, isLoaded } = useUser()
   const {} = useVerifyOneClientExisting()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const pathname = usePathname()
 
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
+
   return (
     <>
       {isSignedIn ? (
-        <Sheet>
+        <Sheet onOpenChange={setIsOpen} open={isOpen}>
           <SheetTrigger asChild>
             <Button variant={'ghost'}>
               <User />
@@ -42,11 +53,19 @@ const Profile = () => {
                 {user.fullName}
               </SheetDescription>
             </SheetHeader>
-            <div className="grid grid-cols-1 gap-6 py-4"></div>
+            <div className="grid grid-cols-1 gap-6 py-6 h-[calc(100vh-160px)] ">
+              <LinksNavDynamic
+                className="w-full flex gap-2 items-center"
+                linksDynamic={linksProtectedClient}
+              />
+            </div>
             <SheetFooter>
               <SheetClose asChild>
                 <SignOutButton>
-                  <Button variant={'outline'}>Sign out</Button>
+                  <Button className="w-full" variant={'outline'}>
+                    Sign out
+                    <FaSignOutAlt />
+                  </Button>
                 </SignOutButton>
               </SheetClose>
             </SheetFooter>

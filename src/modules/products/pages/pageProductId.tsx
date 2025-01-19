@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query'
 import { getOneProduct } from '../services/queries'
-import DetailsOneProduct from '../components/detailsOneProduct'
+import DetailsOneProduct from '../components/productdetailsId'
 
 const PageProductId = async ({ id }: { id: number | undefined }) => {
   const queryClient = new QueryClient()

@@ -17,10 +17,13 @@ export const useCartStore = create(
           const items = state.items.find((i) => i.id === item.id)
             ? state.items.map((i) =>
                 i.id === item.id
-                  ? { ...i, quantity_buy: i.quantity_buy + 1 }
+                  ? {
+                      ...i,
+                      quantity_buy: i.quantity_buy + item.quantity_buy,
+                    }
                   : i
               )
-            : [...state.items, { ...item, quantity_buy: 1 }]
+            : [...state.items, item]
           return { items }
         }),
       deleteItem: (id) =>

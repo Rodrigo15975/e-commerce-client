@@ -10,7 +10,11 @@ const ProductCard = () => {
   return (
     <>
       <main className="container mx-auto px-4">
-        <Card title="NEW ARRIVALS" products={productsNewArrivals} />
+        <Card
+          toHref="/shop"
+          title="NEW ARRIVALS"
+          products={productsNewArrivals}
+        />
         <Card title="TOP SELLING" products={productsTopSelling} />
       </main>
     </>
