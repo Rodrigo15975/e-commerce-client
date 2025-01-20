@@ -21,14 +21,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      # - name: Cache .next build folder
-      # uses: actions/cache@v3
-      # with:
-      # path: .next/cache
-      # key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
-      # restore-keys: |
-      # ${{ runner.os }}-nextjs-
-
       - name: Set environment variables
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
@@ -50,4 +42,4 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
-        run: npm run start
+        run: echo | "Finish deploy in dev completed"
