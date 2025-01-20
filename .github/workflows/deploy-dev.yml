@@ -24,7 +24,7 @@ jobs:
       - name: Cache .next build folder
         uses: actions/cache@v3
         with:
-          path: .next/cache
+          path: .next/build
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
@@ -35,7 +35,6 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
-          NODE_ENV: ${{ github.ref == 'refs/heads/dev' && 'production'  }}
 
         run: echo "Environment variables set. ref ${{github.ref}}  "
 
@@ -51,5 +50,4 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
-          NODE_ENV: ${{github.ref == 'refs/heads/dev' && 'production'  }}
         run: npm run start
