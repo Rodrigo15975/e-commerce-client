@@ -35,7 +35,8 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
           NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
-          NODE_ENV: ${{ github.ref == 'refs/heads/master' && 'production' || 'dev' }}
+          NODE_ENV: ${{ github.ref == 'refs/heads/dev' && 'production'  }}
+
         run: echo "Environment variables set. ref ${{github.ref}}  "
 
       - run: npm ci
