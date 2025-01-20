@@ -2,7 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { FC, PropsWithChildren } from 'react'
 
 const Clerk: FC<PropsWithChildren> = ({ children }) => {
-  const publishKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const publishKey = 'pk_live_Y2xlcmsuZDJsMm94cm9lcXFldWsuYW1wbGlmeWFwcC5jb20k'
   return (
     <>
       <ClerkProvider publishableKey={publishKey}>{children}</ClerkProvider>
