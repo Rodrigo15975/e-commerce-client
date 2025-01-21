@@ -10,6 +10,7 @@ export const TopBanner = () => {
   const { user, isSignedIn, isLoaded } = useUser()
   const { data: client } = useGetOneClientById(user?.id)
   const [isVisible] = useState(true)
+  const { coupon, id, nameGoogle } = client || {}
 
   if (!isLoaded && !isSignedIn) return <LoaderIcon className="animate-spin" />
 
@@ -23,11 +24,11 @@ export const TopBanner = () => {
           className="bg-primary text-white absolute z-[100000] top-0 left-0 w-full py-2 px-4 text-center text-sm "
         >
           <p className="font-medium">
-            {!user?.id
+            {!id
               ? 'Sign up and get 20% off to your first order.'
-              : client?.coupon && client
-              ? `Welcome ${client?.nameGoogle} `
-              : 'You got 20% off your first order.'}
+              : coupon && client && coupon?.expired === false
+              ? 'You got 20% off your first order.'
+              : `Welcome ${nameGoogle} `}
             {!user?.id && (
               <Link href="/sign-in" className="underline">
                 Sign Up Now
