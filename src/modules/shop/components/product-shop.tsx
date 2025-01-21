@@ -11,9 +11,11 @@ import Link from 'next/link'
 import ProductsDetails from '../../products/components/product-details'
 import { useCartStore } from '../../products/store/useCartStore'
 import { FaGoogle } from 'react-icons/fa'
+import { useUser } from '@clerk/nextjs'
 
 const ProductCarts = () => {
   const { client } = useVerifyOneClientExisting()
+  const { user } = useUser()
   const { items } = useCartStore()
   const totalItems = items.length
   const subtotal = items.reduce(
@@ -89,7 +91,7 @@ const ProductCarts = () => {
                     <>
                       <div className="text-[.8rem]">
                         <p>
-                          Your code:{' '}
+                          Your code:
                           <span className="font-bold">
                             {client?.coupon?.code}
                           </span>
@@ -113,15 +115,18 @@ const ProductCarts = () => {
                   <span>Total Price</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
-                {client?.id ? (
+                {user?.id ? (
                   <Button className="w-full bg-black text-white hover:bg-gray-800">
                     CHECKOUT
+                    <ShoppingCart />
                   </Button>
                 ) : (
-                  <Button className="w-full bg-primary text-white hover:bg-gray-800">
-                    <FaGoogle />
-                    Login to checkout
-                  </Button>
+                  <Link href={'/sign-in'}>
+                    <Button className="w-full bg-primary text-white hover:bg-gray-800">
+                      <FaGoogle />
+                      Login to checkout
+                    </Button>
+                  </Link>
                 )}
               </CardContent>
             </Card>

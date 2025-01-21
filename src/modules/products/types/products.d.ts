@@ -42,3 +42,13 @@ type Categorie = {
     updatedAt: string
   }
 }
+
+type Review = {
+  id?: number
+  rating: number
+  review: string
+  productId: number
+  userId: number
+  updatedAt?: string
+  createdAt?: string
+}

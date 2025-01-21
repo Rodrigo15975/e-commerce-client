@@ -5,3 +5,5 @@ interface ResponseNewUser {
   id?: number | undefined
   newClient: boolean
 }
+
+type ResponseApi = ResponseNewUser
