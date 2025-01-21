@@ -237,7 +237,7 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
           </div>
         </div>
         <ProductReviews />
-        <ProductsAlsoLike />
+        <ProductsAlsoLike categorie={product?.category.category} />
       </div>
     </>
   )
