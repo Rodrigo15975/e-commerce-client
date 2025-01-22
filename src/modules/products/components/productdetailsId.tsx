@@ -15,31 +15,29 @@ import {
 } from '@/components/ui/carousel'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import SkeletonDetails from '@/components/ui/skeleton-details'
+import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import { useCartStore } from '../store/useCartStore'
 import ProductsAlsoLike from './products-also-like'
 import { ProductReviews } from './products-review'
-import { useCartStore } from '../store/useCartStore'
-import { useToast } from '@/hooks/use-toast'
 
 const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
   const { toast } = useToast()
   const { data: product, isLoading } = useGetOneProduct(id)
   const { addItem } = useCartStore()
-  const [selectedColor, setSelectedColor] = useState<string>(
-    product?.productVariant[0]?.color || ''
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(
+    product?.productVariant[0]?.color
   )
-
-  const [selectedSize, setSelectedSize] = useState<string>(
-    product?.size[0] || ''
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(
+    product?.size[0]
   )
-
   const [quantity, setQuantity] = useState<number>(1)
-
-  const [selectedImage, setSelectedImage] = useState<string>(
-    product?.productVariant[0]?.url || ''
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    product?.productVariant[0]?.url
   )
   if (isLoading) return <SkeletonDetails />
+  if (!product) return <SkeletonDetails />
 
   const discountedPrice: number =
     (product?.price ?? 0) -
@@ -67,12 +65,12 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
         ...itemToProduct,
         quantity_buy: quantity,
         price: discountedPrice,
-        size: [selectedSize ?? ''],
+        size: [selectedSize ?? product.size[0]],
         productVariant: [
           {
             ...itemToProduct.productVariant[0],
-            color: selectedColor ?? '',
-            url: selectedImage ?? '',
+            color: selectedColor ?? product.productVariant[0].color,
+            url: selectedImage ?? product.productVariant[0].url,
           },
         ],
       })
@@ -89,12 +87,11 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
             </Button>
           </Link>
         </div>
-        {/* <Separator className="my-4" /> */}
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
               <Image
-                src={selectedImage}
+                src={product.productVariant[0].url}
                 alt={product?.product ?? "Product's image" + id}
                 fill
                 className="object-cover"

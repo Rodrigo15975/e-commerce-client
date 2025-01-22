@@ -23,7 +23,6 @@ const ProductCarts = () => {
     0
   )
   const total = subtotal
-
   return (
     <div className="min-h-screen bg-gray-100 p-4 lg:p-8">
       <div className="mx-auto max-w-7xl">
