@@ -10,8 +10,8 @@ export const getAllCategories = async () =>
 export const getOneProduct = async (id: number | undefined) =>
   await useMethods.GET<Product>(`${PathServices.PRODUCTS}/${id}`)
 
-export const createNewReview = async (data: Review) =>
-  await useMethods.POST<ResponseApi, Review>(
+export const createNewReview = async (data: Post) =>
+  await useMethods.POST<ResponseApi, Post>(
     `${PathServices.CLIENTS}/review`,
     data
   )

@@ -24,6 +24,7 @@ type Product = {
   quantity: number
   total_sold: number
   size: string[]
+  post: Post[]
 }
 
 type Categorie = {
@@ -43,12 +44,11 @@ type Categorie = {
   }
 }
 
-type Review = {
+type Post = {
   id?: number
-  rating: number
-  review: string
   productId: number
-  userId: number
-  updatedAt?: string
-  createdAt?: string
+  rating: number
+  comments: string
+  username: string | undefined | null
+  userId?: string
 }

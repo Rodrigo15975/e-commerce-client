@@ -10,9 +10,13 @@ export const useCreateNewReview = () => {
     mutationFn: createNewReview,
     onMutate: async (newReview) => {
       const { productId } = newReview
-      await useClient.cancelQueries({
-        queryKey: ['get-one-product', productId],
+      console.log({
+        productId,
       })
+
+      // await useClient.cancelQueries({
+      //   queryKey: ['get-one-product', productId],
+      // })
 
       // const { productId } = newReview
       // await useClient.cancelQueries(['get-one-product', productId])

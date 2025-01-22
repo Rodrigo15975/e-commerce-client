@@ -15,6 +15,8 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { useFindOneProduct } from '../hooks/useFindOneProduct'
+import { useCreateNewReview } from '../services/mutation'
+import { useUser } from '@clerk/nextjs'
 
 const ProductNewReview = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -22,12 +24,26 @@ const ProductNewReview = () => {
   const { id } = useParams<{ id: string }>()
   const oneProduct = useFindOneProduct(Number(id)) ?? null
   const [review, setReview] = useState('')
-
+  const { mutate: createNewReview } = useCreateNewReview()
+  const { user } = useUser()
   if (oneProduct) {
-    const handleSubmit = async () => {
-      if (!rating || !review) return
-      console.log({ rating, review })
-    }
+    const handleSubmit = () =>
+      createNewReview(
+        {
+          comments: review,
+          rating,
+          productId: oneProduct.id,
+          userId: user?.id,
+          username: user?.fullName ?? 'Anonymous',
+        },
+        {
+          onSuccess: () => {
+            setOpen(false)
+            setReview('')
+            setRating(1)
+          },
+        }
+      )
     const openDialog = () => setOpen(!open)
     return (
       <>
