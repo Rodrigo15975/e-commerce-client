@@ -9,31 +9,44 @@ export const useCreateNewReview = () => {
     mutationKey: ['create-new-review'],
     mutationFn: createNewReview,
     onMutate: async (newReview) => {
-      const { productId } = newReview
-      console.log({
-        productId,
+      const { productId, comments, rating, username, userId } = newReview
+
+      await useClient.cancelQueries({
+        queryKey: ['get-one-product', productId],
       })
 
-      // await useClient.cancelQueries({
-      //   queryKey: ['get-one-product', productId],
-      // })
+      await useClient.refetchQueries({
+        queryKey: ['get-all-products'],
+      })
 
-      // const { productId } = newReview
-      // await useClient.cancelQueries(['get-one-product', productId])
-      // const previousReview = useClient.getQueryData([
-      //   'get-one-product',
-      //   newReview.productId,
-      // ])
-      // useClient.setQueryData(
-      //   ['get-one-product', newReview.productId],
-      //   (old) => {
-      //     return {
-      //       ...old,
-      //       reviews: [...old.reviews, newReview],
-      //     }
-      //   }
-      // )
-      // return { previousReview }
+      useClient.setQueryData(
+        ['get-one-product', productId],
+        (oldData: Product) => {
+          if (oldData) {
+            return {
+              ...oldData,
+              post: [
+                ...oldData.post,
+                {
+                  comments,
+                  countRating: {
+                    rating,
+                  },
+                  countUserId: {
+                    userId,
+                  },
+                  totalRating: {
+                    totalRating: rating,
+                  },
+                  username,
+                  verified: true,
+                },
+              ],
+            }
+          }
+          return oldData
+        }
+      )
     },
     onSuccess: () => {
       toast({

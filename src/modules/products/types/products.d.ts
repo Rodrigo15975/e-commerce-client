@@ -27,6 +27,15 @@ type Product = {
   post: Post[]
 }
 
+type CreatePost = {
+  id?: number
+  productId: number
+  rating: number
+  comments: string
+  username: string | undefined | null
+  userId?: string
+}
+
 type Categorie = {
   id: number
   category: string
@@ -45,10 +54,19 @@ type Categorie = {
 }
 
 type Post = {
-  id?: number
-  productId: number
-  rating: number
   comments: string
-  username: string | undefined | null
-  userId?: string
+  username: string
+  verified: boolean
+
+  countRating: {
+    rating: number
+  }
+
+  countUserId: {
+    userId: number
+  }
+
+  totalRating: {
+    totalRating: number
+  }
 }
