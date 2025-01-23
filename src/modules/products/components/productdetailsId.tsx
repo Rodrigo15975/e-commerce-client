@@ -47,17 +47,7 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
     if (itemToProduct && itemToProduct.id) {
       toast({
         title: 'Added to cart',
-        description: (
-          <>
-            <p>Product added to cart successfully</p>
-            <Link
-              className="underline text-blue-400 mt-8 underline-offset-2"
-              href={'/products'}
-            >
-              Show cart
-            </Link>
-          </>
-        ),
+        description: 'Product added to cart successfull',
         translate: 'yes',
         duration: 2000,
       })
@@ -120,8 +110,8 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
+              <CarouselPrevious className={cn('max-md:hidden')} />
+              <CarouselNext className={cn('max-md:hidden')} />
             </Carousel>
           </div>
 
@@ -227,9 +217,14 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
               </Button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col">
               <h3 className="font-medium">Description</h3>
-              <p className="text-muted-foreground">{product?.description}</p>
+              <div>
+                <p className="text-muted-foreground ">
+                  {product?.description ||
+                    'Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.'}
+                </p>
+              </div>
             </div>
           </div>
         </div>
