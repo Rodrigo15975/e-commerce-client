@@ -1,6 +1,6 @@
+import { useToast } from '@/hooks/use-toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createNewReview } from './api'
-import { useToast } from '@/hooks/use-toast'
 
 export const useCreateNewReview = () => {
   const { toast } = useToast()
@@ -21,34 +21,61 @@ export const useCreateNewReview = () => {
 
       useClient.setQueryData(
         ['get-one-product', productId],
-        (oldData: Product) => {
-          if (oldData) {
-            return {
-              ...oldData,
-              post: [
-                ...oldData.post,
-                {
-                  comments,
-                  countRating: {
-                    rating,
-                  },
-                  countUserId: {
-                    userId,
-                  },
-                  totalRating: {
-                    totalRating: rating,
-                  },
-                  username,
-                  verified: true,
+        (oldData: Product) =>
+          oldData && {
+            ...oldData,
+            post: [
+              ...oldData.post,
+              {
+                comments,
+                countRating: {
+                  rating,
                 },
-              ],
-            }
+                countUserId: {
+                  userId,
+                },
+                totalRating: {
+                  totalRating: rating,
+                },
+                username,
+                verified: true,
+              },
+            ],
           }
-          return oldData
-        }
+
+        //  oldData || [] && (
+
+        // if (oldData) {
+        // return {
+        //    [ ...oldData,
+        //     post: [
+        //     ...oldData.post,
+        //     {
+        //       comments,
+        //       countRating: {
+        //         rating,
+        //       },
+        //       countUserId: {
+        //         userId,
+        //       },
+        //       totalRating: {
+        //         totalRating: rating,
+        //       },
+        //       username,
+        //       verified: true,
+        //     },
+        //   ]]
+        // )
+
+        // }
+        // }
+        // return oldData
       )
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await useClient.refetchQueries({
+        queryKey: ['get-all-products'],
+      })
       toast({
         title: 'Review created',
         description: 'Review created successfully',
