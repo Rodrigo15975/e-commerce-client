@@ -54,7 +54,11 @@ const testimonials = [
   },
 ]
 
-export function ProductReviews() {
+type Props = {
+  post: Post[]
+}
+
+export function ProductReviews({ post }: Props) {
   const { user } = useUser()
 
   return (
@@ -121,6 +125,40 @@ export function ProductReviews() {
           </Card>
         ))}
       </div>
+      {post.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {post.map((review, index) => (
+            <Card key={index} className="border border-gray-200">
+              <CardContent className="p-6">
+                <div className="flex gap-1 mb-4">
+                  {Array.from({
+                    length: Math.round(review.totalRating.totalRating),
+                  }).map((_, index) => (
+                    <Star
+                      key={index}
+                      className={cn(
+                        'h-5 w-5',
+                        index < 4
+                          ? 'fill-yellow-400 text-yellow-400'
+                          : 'fill-muted text-muted'
+                      )}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-semibold">{review.username}</span>
+                  {review.verified && (
+                    <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs">✓</span>
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray-600 text-sm">{review.comments}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

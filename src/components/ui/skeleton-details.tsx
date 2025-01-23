@@ -1,7 +1,7 @@
 const SkeletonDetails = () => {
   return (
-    <>
-      <div className="bg-white p-2 sm:p-4 sm:h-64 rounded-2xl shadow-lg flex flex-col sm:flex-row gap-5 select-none ">
+    <div className="mx-auto container    px-2 sm:px-4">
+      <div className="  bg-white p-2 sm:p-4 sm:h-64  rounded-2xl shadow-lg flex flex-col sm:flex-row gap-5 select-none ">
         <div className="h-52 sm:h-full sm:w-72 rounded-xl bg-gray-200 animate-pulse"></div>
         <div className="flex flex-col flex-1 gap-5 sm:p-2">
           <div className="flex flex-1 flex-col gap-3">
@@ -18,7 +18,7 @@ const SkeletonDetails = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
