@@ -24,6 +24,16 @@ type Product = {
   quantity: number
   total_sold: number
   size: string[]
+  post: Post[]
+}
+
+type CreatePost = {
+  id?: number
+  productId: number
+  rating: number
+  comments: string
+  username: string | undefined | null
+  userId?: string
 }
 
 type Categorie = {
@@ -40,5 +50,23 @@ type Categorie = {
     is_active: boolean
     createdAt: string
     updatedAt: string
+  }
+}
+
+type Post = {
+  comments: string
+  username: string
+  verified: boolean
+
+  countRating: {
+    rating: number
+  }
+
+  countUserId: {
+    userId: number
+  }
+
+  totalRating: {
+    totalRating: number
   }
 }

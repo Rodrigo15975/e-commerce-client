@@ -1,15 +1,5 @@
-import { useMethods } from '@/adapters/methods'
-import { PathServices } from '@/path-services/path-services'
 import { useQuery } from '@tanstack/react-query'
-
-const getAllProducts = async () =>
-  await useMethods.GET<Product[]>(`${PathServices.PRODUCTS}/client`)
-
-const getAllCategories = async () =>
-  await useMethods.GET<Categorie[]>(PathServices.CATEGORIES)
-
-export const getOneProduct = async (id: number | undefined) =>
-  await useMethods.GET<Product>(`${PathServices.PRODUCTS}/${id}`)
+import { getAllCategories, getAllProducts, getOneProduct } from './api'
 
 export const useGetAllProducts = () =>
   useQuery({

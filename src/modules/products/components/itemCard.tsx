@@ -8,7 +8,7 @@ const ItemCard = ({
   title,
 }: {
   products: Product
-  title: string
+  title?: string
 }) => {
   const { productVariant, product, price, discount, id } = products
   const rating = Math.floor(Math.random() * 5 + 0.5)

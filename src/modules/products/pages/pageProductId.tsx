@@ -3,8 +3,8 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query'
-import { getOneProduct } from '../services/queries'
 import DetailsOneProduct from '../components/productdetailsId'
+import { getOneProduct } from '../services/api'
 
 const PageProductId = async ({ id }: { id: number | undefined }) => {
   const queryClient = new QueryClient()
