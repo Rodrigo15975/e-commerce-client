@@ -4,6 +4,7 @@ interface ResponseNewUser {
   service: string
   id?: number | undefined
   newClient: boolean
+  discount?: number | undefined
 }
 
 type ResponseApi = ResponseNewUser

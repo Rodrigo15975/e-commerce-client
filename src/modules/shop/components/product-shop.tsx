@@ -1,19 +1,17 @@
 'use client'
-import { ArrowLeft, CheckIcon, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import { useVerifyOneClientExisting } from '@/hooks/use-verify-one-client'
+import { useUser } from '@clerk/nextjs'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowLeft, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { FaGoogle } from 'react-icons/fa'
 import ProductsDetails from '../../products/components/product-details'
 import { useCartStore } from '../../products/store/useCartStore'
-import { FaGoogle } from 'react-icons/fa'
-import { useUser } from '@clerk/nextjs'
+import ProductDiscountcode from './product-discount-code'
 
 const ProductCarts = () => {
-  const { client } = useVerifyOneClientExisting()
   const { user } = useUser()
   const { items } = useCartStore()
   const totalItems = items.length
@@ -79,35 +77,10 @@ const ProductCarts = () => {
                 <CardTitle>Summary</CardTitle>
               </CardHeader>
               <CardContent className="grid gap-4">
-                <div className="flex justify-between">
-                  <span>Items {totalItems}</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="grid gap-2">
-                  <span className="font-semibold">Give Code </span>
-                  {client && client?.coupon?.code && (
-                    <>
-                      <div className="text-[.8rem]">
-                        <p>
-                          Your code:
-                          <span className="font-bold">
-                            {client?.coupon?.code}
-                          </span>
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  <div className="flex gap-2">
-                    <Input placeholder="Enter your code" />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="bg-green-300"
-                    >
-                      <CheckIcon className="h-4 w-4 " />
-                    </Button>
-                  </div>
-                </div>
+                <ProductDiscountcode
+                  totalItems={totalItems}
+                  subtotal={subtotal}
+                />
                 <Separator />
                 <div className="flex justify-between font-semibold">
                   <span>Total Price</span>
