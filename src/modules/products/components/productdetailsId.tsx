@@ -1,7 +1,7 @@
 'use client'
 import { useGetOneProduct } from '../services/queries'
 
-import { ArrowLeft, MinusIcon, PlusIcon, Star } from 'lucide-react'
+import { ArrowLeft, MinusIcon, PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -13,12 +13,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import SkeletonDetails from '@/components/ui/skeleton-details'
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useCartStore } from '../store/useCartStore'
+import ProductDetailsSizeColorId from './productDetailsSizeColorId'
 import ProductsAlsoLike from './products-also-like'
 import { ProductReviews } from './products-review'
 
@@ -66,6 +66,9 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
       })
     }
   }
+
+  const selectdSize = (size: string) => setSelectedSize(size)
+  const selectdColor = (color: string) => setSelectedColor(color)
 
   return (
     <>
@@ -116,79 +119,14 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
           </div>
 
           <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold">{product?.product}</h1>
-              <div className="mt-2 flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={cn(
-                        'h-5 w-5',
-                        i < 4
-                          ? 'fill-yellow-400 text-yellow-400'
-                          : 'fill-muted text-muted'
-                      )}
-                    />
-                  ))}
-                </div>
-                <span className="text-muted-foreground">(4.5)</span>
-              </div>
-            </div>
-
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold">
-                ${discountedPrice.toFixed(2)}
-              </span>
-              {(product?.discount ?? 0) > 0 && (
-                <span className="text-lg text-muted-foreground line-through">
-                  ${product?.price.toFixed(2)}
-                </span>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="font-medium">Select Color</h3>
-              <RadioGroup
-                value={selectedColor}
-                onValueChange={setSelectedColor}
-                className="flex gap-2"
-              >
-                {product?.productVariant.map((variant) => (
-                  <div key={variant.id} className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value={variant.color}
-                      id={variant.color}
-                      className="peer sr-only"
-                    />
-                    <label
-                      htmlFor={variant.color}
-                      className={cn(
-                        'h-8 w-8 rounded-full border-2',
-                        selectedColor === variant.color && 'border-primary'
-                      )}
-                      style={{ backgroundColor: variant.color }}
-                    />
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="font-medium">Choose Size</h3>
-              <div className="flex flex-wrap gap-2">
-                {product?.size.map((size) => (
-                  <Button
-                    key={size}
-                    variant={selectedSize === size ? 'default' : 'outline'}
-                    onClick={() => setSelectedSize(size)}
-                    className="h-10 w-14"
-                  >
-                    {size}
-                  </Button>
-                ))}
-              </div>
-            </div>
+            <ProductDetailsSizeColorId
+              discountedPrice={discountedPrice}
+              selectedColor={selectedColor}
+              setSelectedColor={selectdColor}
+              product={product}
+              selectedSize={selectedSize}
+              setSelectedSize={selectdSize}
+            />
 
             <div className="flex items-center gap-4">
               <div className="flex items-center">
@@ -216,13 +154,11 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
                 Add to Cart
               </Button>
             </div>
-
             <div className="space-y-4 flex flex-col">
               <h3 className="font-medium">Description</h3>
               <div>
                 <p className="text-muted-foreground ">
-                  {product?.description ||
-                    'Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.'}
+                  {product?.description || 'No description'}
                 </p>
               </div>
             </div>
