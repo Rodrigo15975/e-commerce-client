@@ -16,22 +16,28 @@ const Brands = () => {
           <div className="h-full flex flex-col justify-between  ">
             <h2 className="text-4xl font-bold">Brands</h2>
             <div className="space-y-2">
-              <div className="w-full h-2 bg-gray-200 rounded-full" />
-              <div className="w-2/3 h-2 bg-gray-200 rounded-full" />
-              <div className="w-1/2 h-2 bg-gray-200 rounded-full" />
+              <div className="w-full h-4 bg-gray-200 rounded-full" />
+              <div className="w-2/3 h-4 bg-gray-200 rounded-full" />
+              <div className="w-1/2 h-4 bg-gray-200 rounded-full" />
+              <div className="w-full h-4 bg-gray-200 rounded-full" />
+              <div className="w-2/3 h-4 bg-gray-200 rounded-full" />
+              <div className="w-1/2 h-4 bg-gray-200 rounded-full" />
+              <div className="w-full h-4 bg-gray-200 rounded-full" />
+              <div className="w-2/3 h-4 bg-gray-200 rounded-full" />
+              <div className="w-1/2 h-4 bg-gray-200 rounded-full" />
             </div>
           </div>
         </div>
         {brands?.map((brands, index) => (
           <div
             key={index}
-            className="bg-white rounded-3xl p-6 border shadow-sm hover:shadow-lg transition-shadow"
+            className="bg-white  rounded-3xl p-6 border shadow-sm hover:shadow-lg transition-shadow"
           >
             <div className="flex flex-col h-full justify-between gap-4">
-              <div className="flex items-center  justify-between">
+              <div className="flex items-center justify-between">
                 <Badge
                   variant="secondary"
-                  className="flex items-center text-xl gap-1"
+                  className="flex items-center shadow text-xl gap-1"
                 >
                   <BadgePercent className="h-4 w-4" />
                   {brands}

@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { useUser } from '@clerk/nextjs'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ShoppingCart } from 'lucide-react'
@@ -80,12 +79,8 @@ const ProductCarts = () => {
                 <ProductDiscountcode
                   totalItems={totalItems}
                   subtotal={subtotal}
+                  total={total}
                 />
-                <Separator />
-                <div className="flex justify-between font-semibold">
-                  <span>Total Price</span>
-                  <span>${total.toFixed(2)}</span>
-                </div>
                 {user?.id ? (
                   <Button className="w-full bg-black text-white hover:bg-gray-800">
                     CHECKOUT
