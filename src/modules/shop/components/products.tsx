@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
 import { useGetAllProducts } from '@/modules/products/services/queries'
 import { ChevronDown } from 'lucide-react'
@@ -18,7 +17,7 @@ export default function Products() {
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedStyle, setSelectedStyle] = useState<string>('')
   const [currentPage, setCurrentPage] = useState(1)
-  const productsPerPage = 9
+  const productsPerPage = 6
 
   const filteredProducts = useMemo(() => {
     if (!allProduct || allProduct.length === 0) return []
@@ -41,7 +40,6 @@ export default function Products() {
           : true
 
       const matchesStyle = !selectedStyle || product.gender === selectedStyle
-
       return (
         matchesCategory &&
         matchesColor &&
@@ -101,22 +99,6 @@ export default function Products() {
               </div>
             ))}
           </div>
-
-          <div className="space-y-4">
-            <h3 className="font-medium">Price</h3>
-            <Slider
-              value={priceRange}
-              onValueChange={setPriceRange}
-              max={200}
-              min={1}
-              step={1}
-            />
-            <div className="flex justify-between text-sm">
-              <span>${priceRange[0]}</span>
-              <span>$200</span>
-            </div>
-          </div>
-
           <div className="space-y-4">
             <h3 className="font-medium">Colors</h3>
             <div className="grid grid-cols-5 gap-2">
