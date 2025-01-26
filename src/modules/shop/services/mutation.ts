@@ -2,6 +2,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { createPayment, verifyCodeDiscount } from './api'
+import { useRouter } from 'next/navigation'
 
 export const useVerifyCodeDiscount = () => {
   const { toast } = useToast()
@@ -41,6 +42,7 @@ export const useVerifyCodeDiscount = () => {
 
 export const useCreatePayment = () => {
   const { toast } = useToast()
+  const router = useRouter()
   return useMutation({
     mutationKey: ['create-payment'],
     mutationFn: ({
@@ -54,11 +56,16 @@ export const useCreatePayment = () => {
       emailUser: string
       idUser: string
     }) => createPayment(items, totalPrice, emailUser, idUser),
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const { url } = response
       toast({
-        title: 'Payment created',
-        className: 'bg-gradient-to-r from-teal-200 to-emerald-300 ',
-        description: 'Payment created successfully',
+        title: 'Waiting for payment',
+        className: 'bg-gradient-to-r from-rose-400 to-red-500',
+        description: 'Waiting while I redirect to payment',
+      })
+
+      router.push(url, {
+        scroll: false,
       })
     },
   })
