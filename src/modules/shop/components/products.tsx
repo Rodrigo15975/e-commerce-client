@@ -66,6 +66,8 @@ export default function Products() {
     setCurrentPage(1)
   }, [selectedCategory, selectedColor, selectedSize, priceRange, selectedStyle])
 
+  console.log(filteredProducts[0].productInventory)
+
   return (
     <div className="container mx-auto p-4 lg:p-8">
       <div className="flex flex-col lg:flex-row gap-8">

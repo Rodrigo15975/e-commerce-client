@@ -1,17 +1,14 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useUser } from '@clerk/nextjs'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { FaGoogle } from 'react-icons/fa'
 import ProductsDetails from '../../products/components/product-details'
 import { useCartStore } from '../../products/store/useCartStore'
 import ProductDiscountcode from './product-discount-code'
 
 const ProductCarts = () => {
-  const { user } = useUser()
   const { items } = useCartStore()
   const totalItems = items.length
   const subtotal = items.reduce(
@@ -19,6 +16,7 @@ const ProductCarts = () => {
     0
   )
   const total = subtotal
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 lg:p-8">
       <div className="mx-auto max-w-7xl">
@@ -81,19 +79,6 @@ const ProductCarts = () => {
                   subtotal={subtotal}
                   total={total}
                 />
-                {user?.id ? (
-                  <Button className="w-full bg-black text-white hover:bg-gray-800">
-                    CHECKOUT
-                    <ShoppingCart />
-                  </Button>
-                ) : (
-                  <Link href={'/sign-in'}>
-                    <Button className="w-full bg-primary text-white hover:bg-gray-800">
-                      <FaGoogle />
-                      Login to checkout
-                    </Button>
-                  </Link>
-                )}
               </CardContent>
             </Card>
           </div>
