@@ -21,6 +21,12 @@ type Product = {
       key_url: string
     }
   ]
+  productInventory: {
+    id: number
+    minStock: number
+    productsId: number
+    stock: boolean
+  }
   quantity: number
   total_sold: number
   size: string[]

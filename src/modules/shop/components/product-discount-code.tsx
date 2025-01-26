@@ -1,11 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useUser } from '@clerk/nextjs'
-import { CheckIcon, LoaderIcon } from 'lucide-react'
-import { useVerifyCodeDiscount } from '../services/mutation'
+import { CheckIcon, LoaderIcon, ShoppingCart } from 'lucide-react'
+import { useCreatePayment, useVerifyCodeDiscount } from '../services/mutation'
 import { useVerifyOneClientExisting } from '@/hooks/use-verify-one-client'
 import { useState } from 'react'
 import { Separator } from '@/components/ui/separator'
+import Link from 'next/link'
+import { FaGoogle } from 'react-icons/fa'
+import { useCartStore } from '@/modules/products/store/useCartStore'
 const ProductDiscountcode = ({
   subtotal,
   totalItems,
@@ -19,9 +22,13 @@ const ProductDiscountcode = ({
   const [newTotalWithDiscount, setNewTotalWithDiscount] =
     useState<number>(total)
   const [applyDiscount, setApplyDiscount] = useState<boolean>(false)
+
+  const { user } = useUser()
   const { client } = useVerifyOneClientExisting()
   const { mutate: verifyCodeDiscount, isPending } = useVerifyCodeDiscount()
-  const { user } = useUser()
+  const { mutate: createPayment, isPending: isPendingPayment } =
+    useCreatePayment()
+  const { items } = useCartStore()
   const sendVerify = () =>
     verifyCodeDiscount(
       {
@@ -38,6 +45,14 @@ const ProductDiscountcode = ({
         },
       }
     )
+  const handledCreatePayment = () => {
+    createPayment({
+      totalPrice: newTotalWithDiscount,
+      items,
+      emailUser: user?.primaryEmailAddress?.emailAddress ?? '',
+      idUser: user?.id ?? '',
+    })
+  }
 
   return (
     <>
@@ -86,6 +101,30 @@ const ProductDiscountcode = ({
         <span>Total Price</span>
         <span>${newTotalWithDiscount.toFixed(2)}</span>
       </div>
+
+      {user?.id ? (
+        <Button
+          disabled={items.length === 0 || isPending || isPendingPayment}
+          onClick={handledCreatePayment}
+          className={'w-full bg-primary  text-white hover:bg-gray-800'}
+        >
+          {isPendingPayment ? (
+            <LoaderIcon className="animate-spin" />
+          ) : (
+            <>
+              CHECKOUT
+              <ShoppingCart />
+            </>
+          )}
+        </Button>
+      ) : (
+        <Link href={'/sign-in'}>
+          <Button className="w-full bg-primary text-white hover:bg-gray-800">
+            <FaGoogle />
+            Login to checkout
+          </Button>
+        </Link>
+      )}
     </>
   )
 }

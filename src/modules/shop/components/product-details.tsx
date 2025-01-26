@@ -39,8 +39,10 @@ const ProductDetails = ({ currentProducts }: Props) => {
               </div>
             </CardHeader>
             <CardContent className="p-4">
-              <h3 className="font-medium">{product.product}</h3>
-              <p className="text-sm text-gray-500">{product.brand}</p>
+              <h3 className="font-medium text-sm">
+                Product: {product.product}
+              </h3>
+              <p className="text-xs text-gray-500">Brand: {product.brand}</p>
               <div className="flex items-center gap-1 my-2">
                 {Array(5)
                   .fill(0)
@@ -58,17 +60,17 @@ const ProductDetails = ({ currentProducts }: Props) => {
                   ))}
               </div>
             </CardContent>
-            <CardFooter className="p-4 pt-0 flex justify-between">
+            <CardFooter className="p-4 pt-0 flex  justify-between">
               <div className="flex items-center gap-2">
                 <span className="font-bold">
-                  $
+                  Price: $
                   {product.discount > 0
                     ? product.price - (product.price * product.discount) / 100
                     : product.price}
                 </span>
                 {product.discount > 0 && (
                   <span className="text-sm text-gray-500 line-through">
-                    ${Math.round(product.price)}
+                    Price: ${Math.round(product.price)}
                   </span>
                 )}
               </div>
