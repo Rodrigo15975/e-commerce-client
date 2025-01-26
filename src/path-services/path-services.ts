@@ -5,4 +5,5 @@ export const PathServices = {
   CLIENTS: '/clients',
   PRODUCTS: '/products',
   CATEGORIES: '/category',
+  PAYMENTS: '/payment',
 } as const

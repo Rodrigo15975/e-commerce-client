@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
-import { verifyCodeDiscount } from './api'
 import { useToast } from '@/hooks/use-toast'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+import { createPayment, verifyCodeDiscount } from './api'
 
 export const useVerifyCodeDiscount = () => {
   const { toast } = useToast()
@@ -34,6 +34,31 @@ export const useVerifyCodeDiscount = () => {
         className: 'bg-gradient-to-r from-rose-400 to-red-500',
         variant: 'destructive',
         description: `${message ?? error.message} Retrying please wait`,
+      })
+    },
+  })
+}
+
+export const useCreatePayment = () => {
+  const { toast } = useToast()
+  return useMutation({
+    mutationKey: ['create-payment'],
+    mutationFn: ({
+      totalPrice,
+      items,
+      emailUser,
+      idUser,
+    }: {
+      totalPrice: number
+      items: CreatePayment[]
+      emailUser: string
+      idUser: string
+    }) => createPayment(items, totalPrice, emailUser, idUser),
+    onSuccess: () => {
+      toast({
+        title: 'Payment created',
+        className: 'bg-gradient-to-r from-teal-200 to-emerald-300 ',
+        description: 'Payment created successfully',
       })
     },
   })
