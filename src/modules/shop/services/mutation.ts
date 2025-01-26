@@ -60,7 +60,7 @@ export const useCreatePayment = () => {
       const { url } = response
       toast({
         title: 'Waiting for payment',
-        className: 'bg-gradient-to-r from-rose-400 to-red-500',
+        className: 'bg-gradient-to-r from-emerald-100 to-emerald-100',
         description: 'Waiting while I redirect to payment',
       })
 
