@@ -7,9 +7,11 @@ import { ChevronDown } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useDataGetting } from '../hooks/data-getting'
 import ProductDetails from './product-details'
+import SkeletonDetails from '@/components/ui/skeleton-details'
 
 export default function Products() {
-  const { data: allProduct } = useGetAllProducts()
+  const { data: allProduct, isPending: isPendingAllProducts } =
+    useGetAllProducts()
   const { categories, colors } = useDataGetting()
   const [priceRange, setPriceRange] = useState([1])
   const [selectedCategory, setSelectedCategory] = useState<string>('')
@@ -139,7 +141,8 @@ export default function Products() {
           </div>
 
           <Button
-            className="w-full"
+            variant={'outline'}
+            className="w-full bg-primary/90 text-white "
             onClick={() => {
               setSelectedCategory('')
               setSelectedColor('')
@@ -154,7 +157,7 @@ export default function Products() {
 
         <div className="flex-1">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Products</h1>
+            <h1 className="md:text-4xl text-2xl  font-bold">Products</h1>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-500">
                 Showing {(currentPage - 1) * productsPerPage + 1}-
@@ -166,7 +169,11 @@ export default function Products() {
               </span>
             </div>
           </div>
-          <ProductDetails currentProducts={currentProducts} />
+          {isPendingAllProducts ? (
+            <SkeletonDetails />
+          ) : (
+            <ProductDetails currentProducts={currentProducts} />
+          )}
           <div className="flex items-center justify-center gap-2 mt-8">
             <Button
               variant="outline"

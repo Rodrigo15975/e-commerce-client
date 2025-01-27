@@ -21,6 +21,8 @@ import { useCartStore } from '../store/useCartStore'
 import ProductDetailsSizeColorId from './productDetailsSizeColorId'
 import ProductsAlsoLike from './products-also-like'
 import { ProductReviews } from './products-review'
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
+import InnerImageZoom from 'react-inner-image-zoom'
 
 const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
   const { toast } = useToast()
@@ -83,12 +85,15 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
-              <Image
+              <InnerImageZoom
                 src={product.productVariant[0].url}
-                alt={product?.product ?? "Product's image" + id}
-                fill
+                fullscreenOnMobile
+                fadeDuration={200}
+                zoomPreload
+                imgAttributes={{
+                  alt: `${product.product} - ${product.productVariant[0].color}`,
+                }}
                 className="object-cover"
-                priority
               />
             </div>
             <Carousel className="w-full">

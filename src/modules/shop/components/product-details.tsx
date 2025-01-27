@@ -16,15 +16,18 @@ const ProductDetails = ({ currentProducts }: Props) => {
         {currentProducts.map((product) => (
           <Card key={product.id}>
             <CardHeader className="p-4">
-              <div className="aspect-square relative bg-gray-100">
+              <div className="aspect-square overflow-hidden relative bg-gray-100">
                 {product.productVariant[0]?.url && (
-                  <Image
-                    src={product.productVariant[0].url}
-                    alt={product.product}
-                    fill
-                    priority
-                    className="object-cover"
-                  />
+                  <Link href={`/products/${product.id}`}>
+                    <Image
+                      loading="eager"
+                      src={product.productVariant[0].url}
+                      alt={product.product}
+                      priority
+                      fill
+                      className="object-cover hover:scale-105 transition-transform"
+                    />
+                  </Link>
                 )}
                 {product.discount > 0 && (
                   <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
@@ -51,7 +54,7 @@ const ProductDetails = ({ currentProducts }: Props) => {
                       key={i}
                       className={cn(
                         'h-4 w-4',
-                        i < 5 / 20
+                        i < 5
                           ? // Math.floor((product.rating || 5) / 20)
                             ' fill-yellow-400 text-yellow-400'
                           : 'text-gray-300'
@@ -78,7 +81,7 @@ const ProductDetails = ({ currentProducts }: Props) => {
                 <Link href={`/products/${product.id}`}>
                   <Button
                     variant={'outline'}
-                    className="bg-transparent border border-rose-400/5 bg-rose-50 text-primary"
+                    className="  bg-red-600 text-white"
                   >
                     <ShoppingCartIcon className="mr-2 h-4 w-4" />+
                   </Button>
