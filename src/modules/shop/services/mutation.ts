@@ -50,23 +50,27 @@ export const useCreatePayment = () => {
       items,
       emailUser,
       idUser,
+      codeUsed
     }: {
       totalPrice: number
       items: CreatePayment[]
       emailUser: string
       idUser: string
-    }) => createPayment(items, totalPrice, emailUser, idUser),
+      codeUsed: boolean
+    }) => createPayment(items, totalPrice, emailUser, idUser,codeUsed),
     onSuccess: (response) => {
       const { url } = response
-      toast({
-        title: 'Waiting for payment',
-        className: 'bg-gradient-to-r from-emerald-100 to-emerald-100',
-        description: 'Waiting while I redirect to payment',
-      })
+      if (url) {
+        toast({
+          title: 'Waiting for payment',
+          className: 'bg-gradient-to-r from-emerald-100 to-emerald-100',
+          description: 'Waiting while I redirect to payment',
+        })
 
-      router.push(url, {
-        scroll: false,
-      })
+        router.push(url, {
+          scroll: false,
+        })
+      }
     },
   })
 }

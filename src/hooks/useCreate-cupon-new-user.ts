@@ -27,7 +27,6 @@ export const useCreateCouponNewUser = () => {
       if (newClient)
         toast({
           title: 'Welcome to our platform',
-          className: 'bg-gradient-to-r from-rose-400 to-red-500',
           description: message,
         })
     },

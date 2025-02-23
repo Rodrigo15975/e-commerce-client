@@ -3,7 +3,6 @@ const PriceSummary = ({
   newTotalWithDiscount,
   applyDiscount,
 }: {
-  subtotal: number
   totalItems: number
   total: number
   newTotalWithDiscount: number

@@ -6,7 +6,7 @@ import { FC, PropsWithChildren } from 'react'
 
 const ProviderLayoutNavbar: FC<PropsWithChildren> = ({ children }) => {
   const pathName = usePathname()
-  const noNavbar = ['/sign-in', '/sign-up'].includes(pathName)
+  const noNavbar = ['/sign-in', '/sign-up', '/success'].includes(pathName)
   return (
     <>
       {!noNavbar && <Navbar />}

@@ -2,7 +2,6 @@
 import { useGetOneProduct } from '../services/queries'
 
 import { ArrowLeft, MinusIcon, PlusIcon } from 'lucide-react'
-import Image from 'next/image'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -21,8 +20,7 @@ import { useCartStore } from '../store/useCartStore'
 import ProductDetailsSizeColorId from './productDetailsSizeColorId'
 import ProductsAlsoLike from './products-also-like'
 import { ProductReviews } from './products-review'
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
-import InnerImageZoom from 'react-inner-image-zoom'
+import Image from 'next/image'
 
 const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
   const { toast } = useToast()
@@ -85,14 +83,11 @@ const DetailsOneProduct = ({ id }: { id: number | undefined }) => {
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
-              <InnerImageZoom
+              <Image
                 src={product.productVariant[0].url}
-                fullscreenOnMobile
-                fadeDuration={200}
-                zoomPreload
-                imgAttributes={{
-                  alt: `${product.product} - ${product.productVariant[0].color}`,
-                }}
+                alt={product.product}
+                fill
+                priority
                 className="object-cover"
               />
             </div>

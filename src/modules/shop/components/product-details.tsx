@@ -55,8 +55,7 @@ const ProductDetails = ({ currentProducts }: Props) => {
                       className={cn(
                         'h-4 w-4',
                         i < 5
-                          ? // Math.floor((product.rating || 5) / 20)
-                            ' fill-yellow-400 text-yellow-400'
+                          ? ' fill-yellow-400 text-yellow-400'
                           : 'text-gray-300'
                       )}
                     />

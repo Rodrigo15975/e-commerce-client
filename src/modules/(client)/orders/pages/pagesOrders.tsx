@@ -1,7 +1,9 @@
+import OrderHistory from '../components/order-history'
+
 const PagesOrders = () => {
   return (
     <>
-      <h1>Page Orders</h1>
+      <OrderHistory />
     </>
   )
 }

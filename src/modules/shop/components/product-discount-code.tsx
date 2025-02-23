@@ -7,9 +7,9 @@ import { useUser } from '@clerk/nextjs'
 import { CheckIcon, LoaderIcon, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
+import { useDiscountCode } from '../hooks/useApplyDiscount'
 import { useCreatePaymentHandler } from '../hooks/useCreatePayment'
 import PriceSummary from './product-price-summary'
-import { useDiscountCode } from '../hooks/useApplyDiscount'
 const ProductDiscountcode = ({
   subtotal,
   totalItems,
@@ -29,17 +29,17 @@ const ProductDiscountcode = ({
     sendVerify,
     setCode,
   } = useDiscountCode(total)
-
   const { createPayment, isPending: isPendingPayment } =
     useCreatePaymentHandler()
-  const { items } = useCartStore()
 
+  const { items } = useCartStore()
   const handledDiscountCode = () => sendVerify(user?.id)
   const handledCreatePayment = () =>
     createPayment({
-      totalPrice: newTotalWithDiscount,
+      totalPrice: newTotalWithDiscount || total,
       userEmail: user?.primaryEmailAddress?.emailAddress ?? '',
       userId: user?.id ?? '',
+      codeUsed: applyDiscount,
     })
 
   return (
@@ -50,7 +50,7 @@ const ProductDiscountcode = ({
       </div>
       <div className="grid gap-2">
         <span className="font-semibold">Give Code </span>
-        {client && client?.coupon?.code && (
+        {client && !client?.coupon?.expired && (
           <>
             <div className="text-[.8rem]">
               <p>
@@ -82,8 +82,7 @@ const ProductDiscountcode = ({
       <PriceSummary
         applyDiscount={applyDiscount}
         total={total}
-        newTotalWithDiscount={newTotalWithDiscount}
-        subtotal={subtotal}
+        newTotalWithDiscount={newTotalWithDiscount || total}
         totalItems={totalItems}
       />
 

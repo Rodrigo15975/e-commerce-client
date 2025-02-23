@@ -6,7 +6,11 @@ export const useDiscountCode = (total: number) => {
   const [newTotalWithDiscount, setNewTotalWithDiscount] =
     useState<number>(total)
   const [applyDiscount, setApplyDiscount] = useState<boolean>(false)
-  const { mutate: verifyCodeDiscount, isPending } = useVerifyCodeDiscount()
+  const {
+    mutate: verifyCodeDiscount,
+    isPending,
+    data: discount,
+  } = useVerifyCodeDiscount()
 
   const sendVerify = (userId: string | undefined) => {
     if (!userId) return
@@ -23,7 +27,6 @@ export const useDiscountCode = (total: number) => {
       }
     )
   }
-
   return {
     code,
     setCode,
@@ -31,5 +34,6 @@ export const useDiscountCode = (total: number) => {
     applyDiscount,
     isPending,
     sendVerify,
+    discount
   }
 }

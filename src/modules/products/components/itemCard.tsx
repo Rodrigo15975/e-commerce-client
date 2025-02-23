@@ -1,5 +1,6 @@
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Star, StarHalf } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,7 +12,6 @@ const ItemCard = ({
   title?: string
 }) => {
   const { productVariant, product, price, discount, id } = products
-  const rating = Math.floor(Math.random() * 5 + 0.5)
   const originalPrice = price + (price * discount) / 100
 
   return (
@@ -39,18 +39,20 @@ const ItemCard = ({
             <div className="flex items-center gap-0.5">
               {title === 'TOP SELLING' && (
                 <>
-                  {Array.from({ length: Math.floor(rating) }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                  {rating % 1 !== 0 && (
-                    <StarHalf className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  )}
-                  <span className="ml-1 text-sm text-muted-foreground">
-                    {rating}/5
-                  </span>
+                  {Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <Star
+                        key={i}
+                        className={cn(
+                          'h-4 w-4',
+                          i < 5
+                            ? // Math.floor((product.rating || 5) / 20)
+                              ' fill-yellow-400 text-yellow-400'
+                            : 'text-gray-300'
+                        )}
+                      />
+                    ))}
                 </>
               )}
             </div>

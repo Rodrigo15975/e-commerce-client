@@ -9,17 +9,45 @@ export const useCreatePaymentHandler = () => {
     totalPrice,
     userEmail,
     userId,
+    codeUsed,
   }: {
     totalPrice: number
     userEmail: string
     userId: string
-  }) =>
-    mutate({
-      totalPrice,
-      items,
-      emailUser: userEmail,
-      idUser: userId,
-    })
-
+    codeUsed: boolean
+  }) => {
+    if (codeUsed) {
+      return mutate(
+        {
+          totalPrice,
+          items,
+          emailUser: userEmail,
+          idUser: userId,
+          codeUsed,
+        },
+        {
+          onSuccess: () => {
+            useCartStore.setState({ items: [] })
+          },
+        }
+      )
+    }
+    mutate(
+      {
+        totalPrice,
+        items,
+        emailUser: userEmail,
+        idUser: userId,
+        codeUsed: false,
+      },
+      {
+        onSuccess: () => {
+          useCartStore.setState({
+            items: [],
+          })
+        },
+      }
+    )
+  }
   return { createPayment, isPending }
 }

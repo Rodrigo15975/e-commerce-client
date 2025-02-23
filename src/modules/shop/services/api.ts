@@ -16,9 +16,10 @@ export const createPayment = async (
   data: CreatePayment[],
   totalPrice: number,
   emailUser: string,
-  idUser: string
+  idUser: string,
+  codeUsed: boolean
 ) =>
   await useMethods.POST<ResponsePayment, CreatePayment[]>(
-    `${PathServices.PAYMENTS}/${totalPrice}/${emailUser}/${idUser}`,
+    `${PathServices.PAYMENTS}/${totalPrice}/${emailUser}/${idUser}/${codeUsed}`,
     data
   )
